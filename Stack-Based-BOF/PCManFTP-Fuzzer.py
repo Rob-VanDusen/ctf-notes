@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sys, socket, time
 
 host = '10.2.0.50'
@@ -12,6 +13,6 @@ while (length < 3001):
    client.send("PASS pass") #send pass as password to complete attempt (will fail)
    client.recv(1024) # Grab failed reply from server
    client.close() # Close connection so we can try again
-   time.sleep(1) # Sleep for 2 seconds so we dont DOS the server
+   time.sleep(2) # Sleep for 2 seconds so we dont DOS the server
    print ('Sent: ', length)
    length += 100
