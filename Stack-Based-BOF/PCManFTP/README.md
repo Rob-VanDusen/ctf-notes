@@ -12,5 +12,7 @@
   - Using VirtualBox and a NAT Network
 
 ### Getting Started
+Make sure you have you VMs installed, the NAT Network enabled so the machines can talk to each other, and the Immunity Debugger and PCManFTP software installed. When you are ready, start up your Kali machine and the Windows 7 box. When Windows is ready, start the PCManFTP program, we don't need Immunity yet, so leave that closed.
+
 
 
