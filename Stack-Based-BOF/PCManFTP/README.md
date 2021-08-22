@@ -26,7 +26,15 @@ From our results of running *fuzzer1.py* we know that the crash happens between 
 
 This will genrate a long string 2100 characters long. We'll send that string as our username so we can find the offset. Take a look at *fuzzer2.py* to see how we add this. Before run fuzer2.py, we need to restart the PCManFTP program on our Win & VM, and also start up Immunity Debugger.
 
-Once we have both programs running, go into Immunity Debugger and click File > Attach and choose the PCManFTP program from the list and click "Attach." Next, click the Play arrow in the upper left - make sure the lower left corner says "Running".
+Once we have both programs running, go into Immunity Debugger and click File > Attach and choose the PCManFTP program from the list and click "Attach." Next, click the Play arrow in the upper left - make sure the lower left corner says "Running". Now we ca switch back to our Kali VM and run fuzzer2: `python fuzzer2.py`.
+
+The program will crash quickly, but our python script will be hung, just hit ctrl + c to kill it, then switch to our Win 7 VM. In the Immunity Debugger, look at the upper right quadrant and write down the address listed in the EIP section - this is a piece of the random string we sent and will tell us the offset. After you get it written down, switch back to the Kali VM. Now we run another command and tell it the address we wrote down:
+
+` /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 396F4338`
+
+In a couple seconds the program will return the offset, in my test this was 2002 characters. Now we copy fuzzer2.py to make fuzzer3.py `cp fuzzer2.py fuzzer3.py'.
+
+
 
 
 *rest of article coming soon*
