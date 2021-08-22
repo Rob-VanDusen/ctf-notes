@@ -17,6 +17,8 @@ Make sure you have you VMs installed, the NAT Network enabled so the machines ca
 When Windows is ready, start the PCManFTP program, we don't need Immunity yet, so leave that closed.
 
 ### Fuzzing the App
+I'm fairly certain we can overload the username field and crash the program, so we are going to use a python script to do so. In the file *fuzzer1.py* we will use a socket connection to send the username as an increasingly large number of "A's" until we crash the program. Each time the process runs it send the username as a string of A's and then the word pass for the password before disconnecting and telling us hw many characters it sent. Eventually the program will crash and we'll have a good idea of how many characters to send to cause the crash.
+
 *rest of article coming soon*
 
 
