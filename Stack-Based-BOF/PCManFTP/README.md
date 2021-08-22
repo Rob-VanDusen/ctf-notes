@@ -38,7 +38,12 @@ In a couple seconds the program will return the offset, in my test this was 2006
 So now in fuzzer3 we change up what we are sending:
 `client.send("user " + "A" * 2006 + "B" * 4 + "C" * 300)`
 
-This will send 2006 A's, followed by 4 B's and 300 C's.
+This will send 2006 A's, followed by 4 B's and 300 C's. What we hope to see is the EIP changed to 42424242 - which would be the 4 B's that follow our offset of 2006 A's. Once our script is ready, we need to switch to the Win 7 VM and restart PCManFTP and Immunity Debugger, and then attach and run as we did before.
+
+Once we are set, we can run fuzzer3: `python fuzzer3.py`  and we should crash the program again. Switch back to the WIN 7 VM and confirm that the EIP is 42424242, if it's not, then we need to figure out why. If it reads 42424241 we have 1 too many A's, 42424141 is 2 too many, etc. If it's all 43's then we don't have enough A's.
+
+### We have all 42's...
+OK, so we have the correct offset, don't close Immunity yet! In the menu bar located in the upper left, click on the button labeled "e" to show the running processes. We need to find and double-click on the line containing "SHELL32.DLL". Now we need to right-click in the upper left quadrant and choose Search For... > Command and enter in JMP ESP to search for our return address. We need to write down that address to use in the rest of our scripts.
 
 
 *rest of article coming soon*
