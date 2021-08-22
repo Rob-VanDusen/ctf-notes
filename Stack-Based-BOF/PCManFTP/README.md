@@ -45,6 +45,15 @@ Once we are set, we can run fuzzer3: `python fuzzer3.py`  and we should crash th
 ### We have all 42's...
 OK, so we have the correct offset, don't close Immunity yet! In the menu bar located in the upper left, click on the button labeled "e" to show the running processes. We need to find and double-click on the line containing "SHELL32.DLL". Now we need to right-click in the upper left quadrant and choose Search For... > Command and enter in JMP ESP to search for our return address. We need to write down that address to use in the rest of our scripts.
 
+Now let's copy our fuzzer3.py script into fuzzer4.py:  `cp fuzzer3.py fuzzer4.py`
+
+Now, before we start making changes we need to jump back into the WIN 7 VM and set things back up for another run. This time, before we hit the run button, we need to right-click in the upper left quadrant and select "Go To" > "Expression" and then paste in our return address. After we hit OK we need to hit the F2 key to set a breakpoint, then we can click run and return to our script writing.
+
+In our fuzzer4.py script, we are going to replace the `+ "B" * 4 ` part of our script with `+ ret `. Then at the top we need to add:
+`ret = "\x28\x6c\x9A\x76"`
+
+This is our return address **769A6C28** written in little endian format. This is the 4 pairs written in reverse order with a preceding \x between each two character set.
+
 
 *rest of article coming soon*
 
