@@ -165,4 +165,3 @@ Once we are all set, we need a terminal window opened an netcat running:
 `nc -lvp 4444'
 
 Then, in another terminal window, we can run the script and if all went correctly, we should now have a reverse shell to the Windows machine, running as the same account that is running the PCManFTP software.
-
